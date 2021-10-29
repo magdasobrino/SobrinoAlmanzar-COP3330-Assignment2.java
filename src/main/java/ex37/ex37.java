@@ -4,24 +4,31 @@
    */
 package ex37;
 
-import java.util.Scanner;
+  import java.util.ArrayList;
+  import java.util.Scanner;
 
-public class ex37 {
-    public static void main(String[] args) {
+  public class ex37 {
+      private static final Scanner input = new Scanner(System.in);
 
-        Scanner in = new Scanner(System.in);
-        PasswordGenerator password = new PasswordGenerator();
-        password.populateChar();
-        System.out.print("What's the minimum length? ");
-        int length = in.nextInt();
-        System.out.print("How many special characters? ");
-        int special = in.nextInt();
-        System.out.print("How many numbers? ");
-        int num = in.nextInt();
-        String output = password.generate(length, special, num);
-        System.out.print("The password is:");
-        System.out.print(output);
+      public static void readUserInput()
+      {
+          System.out.print("What's the minimum length? ");
+          int minLength = input.nextInt();
 
-    }// end of main//
+          System.out.print("How many special characters? ");
+          int numOfSpecialChars = input.nextInt();
 
-} //end of program//
+          System.out.print("How many numbers? ");
+          int numOfNumbers = input.nextInt();
+
+          generatepassword generate = new generatepassword();
+          String password = generate.passwordBuilder(minLength, numOfSpecialChars, numOfNumbers);
+
+          System.out.print("Your password is " + password);
+      }
+      public static void main(String[] args) {
+
+          readUserInput();
+
+      }
+  }

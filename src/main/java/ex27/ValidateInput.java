@@ -1,75 +1,61 @@
 package ex27;
 
 public class ValidateInput {
-    public static int firstname(String name) {
 
-        if (name.length() < 2) {
+    public static int firstName(String first) {
+        if (first.isEmpty()) {
+            System.out.println("First name cannot be empty.");
+            return 0;
+        }
+        else if (first.length() < 2) {
             System.out.println("First name needs to be at least 2 characters long.");
             return 0;
-
-        } else if (name.isEmpty()) {
-            System.out.println("First name must be filled in. ");
-            return 0;
         }
-        else
-        {
+        else {
             return 1;
         }
     }
-        public static int last (String lastName){
 
-        if (lastName.isEmpty())
-        {
-            System.out.println("Last name must be filled in. ");
+    public static int lastName(String last) {
+        if (last.isEmpty()) {
+            System.out.println("Last name cannot be empty.");
             return 0;
-
         }
-        else if (lastName.length() < 2)
-            {
-                System.out.println("The Last name needs to be at least 2 characters long.");
-                return 0;
-
-            }
-
-            else{
-                return 1;
-            }
-
+        else if (last.length() < 2) {
+            System.out.println("Last name needs to be at least 2 characters long.");
+            return 0;
         }
+        else {
+            return 1;
+        }
+    }
 
-    public static int id(String EmployeeID) {
-        if (EmployeeID.matches("\\w{2}-\\d{4}$")) //The employee ID must be in the format of AA-1234//
-
-        {
+    public static int zip(String zip) {
+        if (zip.matches("\\d{5}$")) {
             return 1;
         }
         else {
-            System.out.println("The employee ID must be in the format of AA-1234");
+            System.out.println("Invalid zip code.");
             return 0;
         }
     }
 
-    public static int zip(String ZipCode) {
-        if (ZipCode.matches("\\d{5}$")) {
+    public static int id(String id) {
+        if (id.matches("\\w{2}-\\d{4}$")) {
             return 1;
         }
         else {
-            System.out.println("The zipcode must be a 5 digit number."); //The zipcode must be a 5 digit number.//
+            System.out.println("Invalid employee ID.");
             return 0;
         }
     }
 
-    public static String print(String name, String lastName, String ZipCode, String EmployeeID){
-
-    int counter = 0;
-    counter += ValidateInput.firstname(name);
-    counter += ValidateInput.last(lastName);
-    counter += ValidateInput.id(EmployeeID);
-    counter += ValidateInput.zip(ZipCode);
-
-
-        return (counter == 4) ? ("There were no errors found.") : ("Not Correct! Try again.");
+    public static String print(String first, String last, String zip, String id) {
+        int counter = 0;
+        counter += ValidateInput.firstName(first);
+        counter += ValidateInput.lastName(last);
+        counter += ValidateInput.zip(zip);
+        counter += ValidateInput.id(id);
+        return (counter == 4) ? ("No problems were found.") : ("Incorrect information. Please try again.");
     }
 }
-
-

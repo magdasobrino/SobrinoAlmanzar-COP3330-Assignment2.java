@@ -3,122 +3,52 @@
    *   Magdalena Sobrino-Almanzar
    */
 package ex36;
-import java.util.*;
-import java.lang.*;
+  import java.text.DecimalFormat;
+  import java.util.ArrayList;
+  import java.util.Scanner;
 
-public class ex36{
-    public static void main(String[] args){
+  public class ex36 {
+      private static final Scanner input = new Scanner(System.in);
 
-        String answer;
-        int min = 0, max = 0;
-        double average = 0, sd = 0;
-        boolean check = false;
-        Scanner scnr = new Scanner(System.in);
-        List<Integer> numbers = new ArrayList<>();
+      public static ArrayList<String> readUserInput()
+      {
+          String number = "";
+          ArrayList<String> stats = new ArrayList<>();
+          while(!(number.equals("done")))
+          {
+              System.out.print("Enter a number: ");
+              number = input.nextLine();
+              if(!(number.equals("done")))
+                  stats.add(number);
+          }
 
-        do{
-            System.out.println("Enter a number:");
-            answer = scnr.nextLine();
+          return stats;
+      }
 
-            if(checkNumericValue(answer) == true ){
-                numbers.add(Integer.parseInt(answer));
-            }
-            else{
-                if(!answer.equalsIgnoreCase("done")){
-                    System.out.println("Invalid input! Please try again...");
-                }
-            }
-
-        }while(!answer.equalsIgnoreCase("done"));
-
-        System.out.print("\nNumbers: ");
-        for(int i = 0; i < numbers.size(); i++)
-        {
-            System.out.print(numbers.get(i));
-            if(i != (numbers.size()-1)){
-                System.out.print(", ");
-            }
-        }
-
-        average = average(numbers);
-        System.out.printf("\nThe average is %.2f \n", average);
-
-        min = min(numbers);
-        System.out.println("The minimum is " + min);
-
-        max = max(numbers);
-        System.out.println("The maximum is " + max);
-
-        sd = std(numbers);
-        System.out.printf("The average is %.2f \n", sd);
-
-        System.exit(0);
-    }//end of main
-
-    public static double average(List<Integer> list){
-
-        int sum = 0;
-        double avg = 0;
-
-        for(int i = 0; i < list.size(); i++){
-            sum += list.get(i);
-        }
-
-        avg = sum / list.size();
-
-        return avg;
-    }
-
-    public static boolean checkNumericValue(String value){
-
-        for(int i = 0; i < value.length(); i++){
-            if(!Character.isDigit(value.charAt(i))){
-                return false;
-            }
-        }
-        return true;
-    }
-
-    public static int min(List<Integer> list){
-
-        int min = list.get(0);
-
-        for(int i = 1; i < list.size(); i++){
-            if(list.get(i)<min){
-                min = list.get(i);
-            }
-        }
-
-        return min;
-    }
-
-    public static int max(List<Integer> list){
-
-        int max = list.get(0);
-
-        for(int i = 1; i < list.size(); i++){
-            if(list.get(i)>max){
-                max = list.get(i);
-            }
-        }
-
-        return max;
-    }
-
-    public static double std(List<Integer> list){
-
-        double mean = 0, std = 0, numerator = 0;
-
-        mean = average(list);
-
-        for(int i = 0; i < list.size(); i++){
-            numerator += Math.pow(list.get(i) - mean, 2);
-        }
-
-        std = Math.sqrt(numerator/list.size());
-
-        return std;
-    } // end of main//
+      public static void main(String[] args) {
 
 
-}//end of program
+          ArrayList<String> stats;
+          stats = readUserInput();
+          double[] newStats = new double[stats.size()];
+
+          ArrayList<Double> convertStats = new ArrayList<>();
+          for (int i = 0; i < stats.size(); i++) {
+              convertStats.add(Double.valueOf(stats.get(i)));
+              newStats[i] = convertStats.get(i);
+          }
+
+          num calculate = new num();
+          double average = calculate.calculateAverage(newStats);
+          double min = calculate.calculateMinimum(newStats);
+          double max = calculate.calculateMaximum(newStats);
+          double standardDev = calculate.calculateStandardDev(newStats, average);
+
+          DecimalFormat df = new DecimalFormat("###.###");
+          System.out.print("The average is " + df.format(average) + ".\n" +
+                  "The minimum is " + df.format(min) + ".\n" +
+                  "The maximum is " + df.format(max) + ".\n" +
+                  "The standard deviation is " + df.format(standardDev) + ".");
+      }
+
+  }
